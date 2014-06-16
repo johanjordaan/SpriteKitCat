@@ -18,6 +18,7 @@ class NodeFactory<T:SKNode> {
             node = nodes.removeLast()
         } else {
             node = T()
+            (node as SKNode).userData = NSMutableDictionary()
         }
         return node!
     }

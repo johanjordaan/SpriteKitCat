@@ -24,6 +24,7 @@ class SceneManagerScene : SKScene {
     // All scene nodes are added to the world node which is added to the scene
     // unless a the hud parameter is specified. This induicates that the node should
     // be added to the camera.
+    //
     var world:SKNode? = nil
     var camera:SKNode? = nil
     override func addChild(node: SKNode!){
