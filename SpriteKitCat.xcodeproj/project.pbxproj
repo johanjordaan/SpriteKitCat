@@ -10,6 +10,11 @@
 		04540AF9194EECB000F26107 /* SpriteKitCat.h in Headers */ = {isa = PBXBuildFile; fileRef = 04540AF8194EECB000F26107 /* SpriteKitCat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04540AFF194EECB000F26107 /* SpriteKitCat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04540AF3194EECB000F26107 /* SpriteKitCat.framework */; };
 		04540B06194EECB000F26107 /* SpriteKitCatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04540B05194EECB000F26107 /* SpriteKitCatTests.swift */; };
+		04540B1C194EED7F00F26107 /* NodeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04540B18194EED7F00F26107 /* NodeFactory.swift */; };
+		04540B1D194EED7F00F26107 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04540B19194EED7F00F26107 /* SceneManager.swift */; };
+		04540B1E194EED7F00F26107 /* SceneManagerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04540B1A194EED7F00F26107 /* SceneManagerScene.swift */; };
+		04540B1F194EED7F00F26107 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04540B1B194EED7F00F26107 /* ViewModel.swift */; };
+		04540B2A194EEE0700F26107 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04540B29194EEE0700F26107 /* SpriteKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +34,11 @@
 		04540AFE194EECB000F26107 /* SpriteKitCatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpriteKitCatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04540B04194EECB000F26107 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04540B05194EECB000F26107 /* SpriteKitCatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitCatTests.swift; sourceTree = "<group>"; };
+		04540B18194EED7F00F26107 /* NodeFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeFactory.swift; path = SpriteKitCat/NodeFactory.swift; sourceTree = "<group>"; };
+		04540B19194EED7F00F26107 /* SceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneManager.swift; path = SpriteKitCat/SceneManager.swift; sourceTree = "<group>"; };
+		04540B1A194EED7F00F26107 /* SceneManagerScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneManagerScene.swift; path = SpriteKitCat/SceneManagerScene.swift; sourceTree = "<group>"; };
+		04540B1B194EED7F00F26107 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = SpriteKitCat/ViewModel.swift; sourceTree = "<group>"; };
+		04540B29194EEE0700F26107 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04540B2A194EEE0700F26107 /* SpriteKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +64,11 @@
 		04540AE9194EECB000F26107 = {
 			isa = PBXGroup;
 			children = (
+				04540B29194EEE0700F26107 /* SpriteKit.framework */,
+				04540B18194EED7F00F26107 /* NodeFactory.swift */,
+				04540B19194EED7F00F26107 /* SceneManager.swift */,
+				04540B1A194EED7F00F26107 /* SceneManagerScene.swift */,
+				04540B1B194EED7F00F26107 /* ViewModel.swift */,
 				04540AF5194EECB000F26107 /* SpriteKitCat */,
 				04540B02194EECB000F26107 /* SpriteKitCatTests */,
 				04540AF4194EECB000F26107 /* Products */,
@@ -210,6 +226,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04540B1D194EED7F00F26107 /* SceneManager.swift in Sources */,
+				04540B1E194EED7F00F26107 /* SceneManagerScene.swift in Sources */,
+				04540B1F194EED7F00F26107 /* ViewModel.swift in Sources */,
+				04540B1C194EED7F00F26107 /* NodeFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +418,7 @@
 				04540B0B194EECB000F26107 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04540B0C194EECB000F26107 /* Build configuration list for PBXNativeTarget "SpriteKitCatTests" */ = {
 			isa = XCConfigurationList;
@@ -406,6 +427,7 @@
 				04540B0E194EECB000F26107 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
