@@ -10,7 +10,17 @@ import Foundation
 
 class ViewModel {
 
-    func onClick() {
+    
+    func onTouchBegan() {
+    }
+    
+    func onTouchMoved() {
+    }
+    
+    func onTouchEnded() {
+    }
+    
+    func onTouchCancelled() {
     }
     
 }

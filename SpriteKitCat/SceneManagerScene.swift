@@ -10,19 +10,28 @@ import Foundation
 import SpriteKit
 
 class SceneManagerScene : SKScene {
-   
+    var sceneManager:SceneManager? = nil;
+    
+    
     var gotoScene:((String)->Void) = { (String)->Void in
         assert(true,"This scene has not been registered with the SceneManager");
     }
     
     var shapeNodeFactory:NodeFactory<SKShapeNode> = NodeFactory<SKShapeNode>()
     var spriteNodeFactory:NodeFactory<SKSpriteNode> = NodeFactory<SKSpriteNode>()
+    var labelNodeFactory:NodeFactory<SKLabelNode> = NodeFactory<SKLabelNode>()
     
     // All scene nodes are added to the world node which is added to the scene
-    //
+    // unless a the hud parameter is specified. This induicates that the node should
+    // be added to the camera.
     var world:SKNode? = nil
     var camera:SKNode? = nil
     override func addChild(node: SKNode!){
+        self.addChild(node,hud:false)
+    }
+    
+    
+    func addChild(node: SKNode!,hud: Bool){
         if !world? {
             world = SKNode()
             super.addChild(world)
@@ -34,7 +43,14 @@ class SceneManagerScene : SKScene {
             world!.addChild(camera)
         }
         
-        world!.addChild(node);
+        if hud {
+            node.position.x -= size.width/2
+            node.position.y += size.height/2
+            camera!.addChild(node)
+        }
+        else {
+            world!.addChild(node)
+        }
     }
     
     func centerOnCamera() {
@@ -51,39 +67,82 @@ class SceneManagerScene : SKScene {
     }
     
     override func didMoveToView(view: SKView!) {
-        //var panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
-        //self.view.addGestureRecognizer(panGestureRecognizer)
+        super.didMoveToView(view)
+        var panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
+        self.view.addGestureRecognizer(panGestureRecognizer)
     }
     
-    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
-        super.touchesBegan(touches, withEvent: event)
-    }
-    
-    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        super.touchesMoved(touches, withEvent: event)
-    }
-    
-    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
-        //super.touchesEnded(touches, withEvent: event)
-        var touch = touches.allObjects
+    func getTouchedViewModels(touches:NSSet!) -> ViewModel[] {
+        var touchedViewModels:ViewModel[] = []
         
+        var touch = touches.allObjects
         for touch in touches.allObjects as UITouch[] {
             var location = touch.locationInNode(self)
             var touchedNode = nodeAtPoint(location)
             if touchedNode? {
                 if touchedNode.userData? {
                     if let vm = touchedNode.userData["ViewModel"] as? ViewModel {
-                        vm.onClick();
+                        touchedViewModels.append(vm)
                     }
                 }
             }
         }
+        
+        return touchedViewModels
     }
+    
+    var initialTouches:ViewModel[] = []
+    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
+        super.touchesBegan(touches, withEvent: event)
+        for vm in getTouchedViewModels(touches) {
+            initialTouches.append(vm)
+            vm.onTouchBegan()
+        }
+    }
+    
+    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
+        super.touchesMoved(touches, withEvent: event)
+        
+        for vm in getTouchedViewModels(touches) {
+            vm.onTouchMoved()
+        }
+    }
+    
+    override func touchesCancelled(touches: NSSet!, withEvent event: UIEvent!) {
+        super.touchesMoved(touches, withEvent: event)
+        
+        for vm in getTouchedViewModels(touches) {
+            vm.onTouchCancelled()
+        }
+    }
+    
+    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+        super.touchesEnded(touches, withEvent: event)
+        
+        for touchedVm in initialTouches {
+            var handeled = false
+            for vm in getTouchedViewModels(touches) {
+                if vm === touchedVm {
+                    vm.onTouchEnded()
+                    handeled = true
+                }
+            }
+            
+            if !handeled {
+                touchedVm.onTouchCancelled()
+            }
+        }
+        
+        
+        initialTouches = []
+    }
+    
+    
     
 
     
     
-    /*func handlePan(recognizer:UIPanGestureRecognizer) {
+    func handlePan(recognizer:UIPanGestureRecognizer) {
         if recognizer.state == UIGestureRecognizerState.Began {
         } else if recognizer.state == UIGestureRecognizerState.Changed {
             var translation =  recognizer.translationInView(recognizer.view)
@@ -98,7 +157,7 @@ class SceneManagerScene : SKScene {
     
         } else if (recognizer.state == UIGestureRecognizerState.Ended) {
         }
-    }*/
+    }
     
     
     
